@@ -15,21 +15,36 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="shader.fr">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="shader.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="lighting.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="lighting.fr">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="lamp.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="lamp.fr">
+      <Filter>Исходные файлы</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Shader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Файлы ресурсов</Filter>
+    <ClCompile Include="begin.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shader.vs">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="shader.fr">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
+    <ClCompile Include="basic_lighting.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

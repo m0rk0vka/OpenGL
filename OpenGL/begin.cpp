@@ -1,3 +1,4 @@
+/*
 // GLEW 
 #define GLEW_STATIC 
 #include <GL/glew.h> 
@@ -349,4 +350,4 @@ void do_movement() {
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     }
 }
-        
+*/        

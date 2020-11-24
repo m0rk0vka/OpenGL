@@ -142,12 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="basic_lighting.cpp" />
+    <ClCompile Include="begin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lamp.fr" />
+    <None Include="lamp.vs" />
+    <None Include="lighting.fr" />
+    <None Include="lighting.vs" />
     <None Include="shader.fr" />
     <None Include="shader.vs" />
   </ItemGroup>
