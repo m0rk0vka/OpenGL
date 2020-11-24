@@ -27,6 +27,7 @@
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void do_movement();
 
 // Window dimensions
@@ -41,6 +42,7 @@ GLfloat pitch = 0.0f;
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 bool firstMouse = true;
+GLfloat fov = 45.0f;
 bool keys[1024];
 
 // Deltatime
@@ -65,6 +67,7 @@ int main() {
     // Set the required callback functions
     glfwSetKeyCallback(window, key_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
+    glfwSetScrollCallback(window, scroll_callback);
 
     // GLFW Options
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -236,7 +239,7 @@ int main() {
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         // Projection
         glm::mat4 projection;
-        projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+        projection = glm::perspective(fov, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
         // Get their uniform location
         GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
         GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
@@ -315,6 +318,20 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(front);
 }
+
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+    if (fov >= 1.0f && fov <= 45.0f) {
+        fov -= yoffset;
+    }
+    if (fov <= 1.0f) {
+        fov = 1.0f;
+    }
+    if (fov >= 45.0f) {
+        fov = 45.0f;
+    }
+}
+
 
 void do_movement() {
     // Camera controls
