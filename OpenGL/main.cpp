@@ -40,6 +40,7 @@ GLfloat yaw = -90.0f;
 GLfloat pitch = 0.0f;
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
+bool firstMouse = true;
 bool keys[1024];
 
 // Deltatime
@@ -285,6 +286,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    if (firstMouse) {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
     GLfloat xoffset = xpos - lastX;
     GLfloat yoffset = lastY - ypos; // Reversed since y-coordinates go from bottom to left
     lastX = xpos;
