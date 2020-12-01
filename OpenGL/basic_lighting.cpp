@@ -167,11 +167,15 @@ int main()
     // load textures (we now use a utility function to keep the code more organized)
     // -----------------------------------------------------------------------------
     unsigned int diffuseMap = loadTexture("container.png");
+    unsigned int specularMap = loadTexture("container_specular.png");
+    unsigned int emissionMap = loadTexture("emission.jpg");
     // shader configuration
     // --------------------
     lightingShader.Use();
     lightingShader.setInt("material.diffuse", 0);
-
+    lightingShader.setInt("material.specular", 1);
+    lightingShader.setInt("material.emission", 2);
+    
 
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -201,7 +205,6 @@ int main()
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
         // material properties
-        lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
         lightingShader.setInt("material.shininess", 64);
 
         // Create camera transformations
@@ -213,9 +216,15 @@ int main()
         glm::mat4 model = glm::mat4(1.0f);
         lightingShader.setMat4("model", model);
 
-        /* bind diffuse map
+        // bind diffuse map
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, diffuseMap);*/
+        glBindTexture(GL_TEXTURE_2D, diffuseMap);
+        // bind specular map
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, specularMap);
+        // bind emission map
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, emissionMap);
 
         // render the cube
         glBindVertexArray(cubeVAO);
