@@ -205,21 +205,24 @@ int main()
 
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.Use();
-        lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
-        //lightingShader.setVec3("light.position", lightPos);
+        lightingShader.setVec3("light.position", cameraPos);
+        lightingShader.setVec3("light.direction", cameraFront);
+        lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        lightingShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
         lightingShader.setVec3("viewPos", cameraPos);
 
         // light properties
-        glm::vec3 lightColor;
-        lightingShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-        lightingShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        lightingShader.setVec3("light.ambient", 0.1f, 0.1f, 0.1f);
+        // we configure the diffuse intensity slightly higher; the right lighting conditions differ with each lighting method and environment.
+        // each environment and lighting type requires some tweaking to get the best out of your environment.
+        lightingShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("light.constant", 1.0f);
         lightingShader.setFloat("light.linear", 0.09f);
         lightingShader.setFloat("light.quadratic", 0.032f);
 
         // material properties
-        lightingShader.setInt("material.shininess", 64);
+        lightingShader.setFloat("material.shininess", 32.0f);
 
         // Create camera transformations
         glm::mat4 view;
@@ -257,7 +260,7 @@ int main()
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        // also draw the lamp object
+        /* also draw the lamp object
         lampShader.Use();
         lampShader.setMat4("projection", projection);
         lampShader.setMat4("view", view);
@@ -267,7 +270,7 @@ int main()
         lampShader.setMat4("model", model);
 
         glBindVertexArray(lightCubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 36);*/
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
