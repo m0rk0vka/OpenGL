@@ -5,10 +5,6 @@
 // GLFW 
 #include <glfw3.h> 
 
-// GL includes 
-#include <shader.hpp> 
-#include <camera.hpp> 
-
 // GLM Mathemtics 
 #include <glm/glm.hpp> 
 #include <glm/gtc/matrix_transform.hpp> 
@@ -22,7 +18,7 @@
 
 #include <iostream>
 
-#include "Shader.h"
+#include "Shader.hpp"
 
 
 // Function prototypes
@@ -92,6 +88,7 @@ int main()
     // Build and compile our shader program
     Shader lightingShader("lighting.vs", "lighting.fr");
     Shader lampShader("lamp.vs", "lamp.fr");
+    
 
     // Set up vertex data (and buffer(s)) and attribute pointers
     GLfloat vertices[] = {
@@ -217,6 +214,9 @@ int main()
         lightingShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
         lightingShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("light.constant", 1.0f);
+        lightingShader.setFloat("light.linear", 0.09f);
+        lightingShader.setFloat("light.quadratic", 0.032f);
 
         // material properties
         lightingShader.setInt("material.shininess", 64);
@@ -257,7 +257,7 @@ int main()
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        /* also draw the lamp object
+        // also draw the lamp object
         lampShader.Use();
         lampShader.setMat4("projection", projection);
         lampShader.setMat4("view", view);
@@ -267,7 +267,7 @@ int main()
         lampShader.setMat4("model", model);
 
         glBindVertexArray(lightCubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);*/
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
