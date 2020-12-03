@@ -41,5 +41,16 @@
     <ClCompile Include="basic_lighting.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="depth.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="depth_fragment.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="depth_vertix.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
   </ItemGroup>
 </Project>
