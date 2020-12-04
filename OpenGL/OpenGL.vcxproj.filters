@@ -33,6 +33,15 @@
     <None Include="lamp.fr">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="stencil_testing.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="stencil_testing.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="stencil_single_color.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="begin.cpp">

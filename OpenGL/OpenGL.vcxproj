@@ -153,6 +153,9 @@
     <None Include="lighting.vs" />
     <None Include="shader.fr" />
     <None Include="shader.vs" />
+    <None Include="stencil_single_color.fs" />
+    <None Include="stencil_testing.fs" />
+    <None Include="stencil_testing.vs" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="depth_fragment.txt" />
