@@ -149,6 +149,8 @@
   <ItemGroup>
     <None Include="blending.fs" />
     <None Include="blending.vs" />
+    <None Include="cubemaps.fs" />
+    <None Include="cubemaps.vs" />
     <None Include="framebuffers.fs" />
     <None Include="framebuffers.vs" />
     <None Include="framebuffers_screen.fs" />
@@ -159,6 +161,8 @@
     <None Include="lighting.vs" />
     <None Include="shader.fr" />
     <None Include="shader.vs" />
+    <None Include="skybox.fs" />
+    <None Include="skybox.vs" />
     <None Include="stencil_single_color.fs" />
     <None Include="stencil_testing.fs" />
     <None Include="stencil_testing.vs" />

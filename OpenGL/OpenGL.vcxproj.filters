@@ -60,6 +60,18 @@
     <None Include="framebuffers_screen.vs">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="skybox.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="skybox.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="cubemaps.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="cubemaps.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="begin.cpp">
