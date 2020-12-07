@@ -147,6 +147,8 @@
     <ClCompile Include="depth.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blending.fs" />
+    <None Include="blending.vs" />
     <None Include="lamp.fr" />
     <None Include="lamp.vs" />
     <None Include="lighting.fr" />
