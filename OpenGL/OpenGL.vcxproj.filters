@@ -48,6 +48,18 @@
     <None Include="blending.fs">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="framebuffers.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="framebuffers.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="framebuffers_screen.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="framebuffers_screen.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="begin.cpp">

@@ -149,6 +149,10 @@
   <ItemGroup>
     <None Include="blending.fs" />
     <None Include="blending.vs" />
+    <None Include="framebuffers.fs" />
+    <None Include="framebuffers.vs" />
+    <None Include="framebuffers_screen.fs" />
+    <None Include="framebuffers_screen.vs" />
     <None Include="lamp.fr" />
     <None Include="lamp.vs" />
     <None Include="lighting.fr" />
