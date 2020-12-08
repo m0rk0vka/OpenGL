@@ -72,6 +72,24 @@
     <None Include="cubemaps.vs">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="debug_quad.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="debag_quad_depth.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="shadow_mapping_depth.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="shadow_mapping_depth.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="shadow_mapping.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="shadow_mapping.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="begin.cpp">
@@ -81,6 +99,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="depth.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="advanced.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
