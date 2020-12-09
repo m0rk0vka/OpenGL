@@ -90,18 +90,36 @@
     <None Include="shadow_mapping.vs">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="normal_mapping.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="normal_mapping.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="RMP.vs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="RMP.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="begin.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="basic_lighting.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="depth.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="advanced.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="shadows.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="parallaxAndNormalMapping.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

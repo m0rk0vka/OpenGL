@@ -143,15 +143,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="advanced.cpp" />
-    <ClCompile Include="basic_lighting.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="begin.cpp" />
     <ClCompile Include="depth.cpp" />
+    <ClCompile Include="parallaxAndNormalMapping.cpp" />
+    <ClCompile Include="shadows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="blending.fs" />
     <None Include="blending.vs" />
     <None Include="cubemaps.fs" />
     <None Include="cubemaps.vs" />
+    <None Include="normal_mapping.fs" />
+    <None Include="normal_mapping.vs" />
+    <None Include="RMP.fs" />
+    <None Include="RMP.vs" />
     <None Include="shadow_mapping.fs" />
     <None Include="shadow_mapping.vs" />
     <None Include="shadow_mapping_depth.fs" />
