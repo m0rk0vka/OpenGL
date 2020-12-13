@@ -9,5 +9,6 @@ Effects:
 6) per-pixel lighting calculation
 7) parallax relief mapping
 8) stencil
+
 Build:
 Go to \bin and run OpenGL.exe
