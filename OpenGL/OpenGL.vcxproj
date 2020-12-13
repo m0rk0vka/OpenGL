@@ -142,12 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="advanced.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="begin.cpp" />
-    <ClCompile Include="depth.cpp" />
-    <ClCompile Include="parallaxAndNormalMapping.cpp" />
-    <ClCompile Include="shadows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="blending.fs" />
@@ -156,10 +151,10 @@
     <None Include="cubemaps.vs" />
     <None Include="mirrorCubeFragment.glsl" />
     <None Include="mirrorCubeVertex.glsl" />
-    <None Include="normal_mapping.fs" />
-    <None Include="normal_mapping.vs" />
-    <None Include="RMP.fs" />
-    <None Include="RMP.vs" />
+    <None Include="normalMappingFragment.glsl" />
+    <None Include="normalMappingVertex.glsl" />
+    <None Include="parallaxMappingFragment.glsl" />
+    <None Include="parallaxMappingVertex.glsl" />
     <None Include="shadow_mapping.fs" />
     <None Include="shadow_mapping.vs" />
     <None Include="shadow_mapping_depth.fs" />
@@ -167,20 +162,20 @@
     <None Include="debug_quad.vs" />
     <None Include="framebuffers.fs" />
     <None Include="framebuffers.vs" />
-    <None Include="framebuffers_screen.fs" />
-    <None Include="framebuffers_screen.vs" />
-    <None Include="lamp.fr" />
-    <None Include="lamp.vs" />
-    <None Include="lighting.fr" />
-    <None Include="lighting.vs" />
+    <None Include="framebuffersScreenFragment.glsl" />
+    <None Include="framebuffersScreenVertex.glsl" />
+    <None Include="lampFragment.glsl" />
+    <None Include="lampVertex.glsl" />
+    <None Include="lightingFragment.glsl" />
+    <None Include="lightingVertex.glsl" />
     <None Include="fragment.glsl" />
     <None Include="vertex.glsl" />
     <None Include="shadow_mapping_depth.vs" />
     <None Include="skyboxFragment.glsl" />
     <None Include="skyboxVertex.glsl" />
     <None Include="stencil_single_color.fs" />
-    <None Include="stencil_testing.fs" />
-    <None Include="stencil_testing.vs" />
+    <None Include="billboardFragment.glsl" />
+    <None Include="billboardVertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="depth_fragment.txt" />

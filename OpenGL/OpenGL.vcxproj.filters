@@ -15,24 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lighting.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="lighting.fr">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="lamp.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="lamp.fr">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="stencil_testing.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="stencil_testing.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
     <None Include="stencil_single_color.fs">
       <Filter>Исходные файлы</Filter>
     </None>
@@ -46,12 +28,6 @@
       <Filter>Исходные файлы</Filter>
     </None>
     <None Include="framebuffers.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="framebuffers_screen.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="framebuffers_screen.vs">
       <Filter>Исходные файлы</Filter>
     </None>
     <None Include="cubemaps.fs">
@@ -78,18 +54,6 @@
     <None Include="shadow_mapping.vs">
       <Filter>Исходные файлы</Filter>
     </None>
-    <None Include="normal_mapping.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="normal_mapping.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="RMP.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="RMP.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
     <None Include="mirrorCubeFragment.glsl">
       <Filter>Исходные файлы</Filter>
     </None>
@@ -108,24 +72,45 @@
     <None Include="mirrorCubeVertex.glsl">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="lampFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="lampVertex.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="lightingVertex.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="lightingFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="normalMappingVertex.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="normalMappingFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="parallaxMappingFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="parallaxMappingVertex.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="framebuffersScreenVertex.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="framebuffersScreenFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="billboardVertex.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="billboardFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="begin.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="depth.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="advanced.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="shadows.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="parallaxAndNormalMapping.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
