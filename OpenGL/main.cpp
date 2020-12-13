@@ -106,6 +106,10 @@ int main()
 
     glViewport(0, 0, WIDTH, HEIGHT);
     glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_STENCIL_TEST);
+	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -472,6 +476,7 @@ int main()
 	Shader skyboxShader(/*"Shaders/*/"skyboxVertex.glsl", /*"Shaders/*/"skyboxFragment.glsl");
 	Shader mirrorCubeShader(/*"Shaders/*/"mirrorCubeVertex.glsl", /*"Shaders/*/"mirrorCubeFragment.glsl");
 	Shader shader(/*"Shaders/*/"vertex.glsl", /*"Shader/*/"fragment.glsl");
+	Shader stencilShader(/*"Shaders/*/"vertex.glsl", /*"Shaders/*/"stencilColorFragment.glsl");
 	Shader lampShader(/*"Shaders/*/"lampVertex.glsl", /*"Shaders/*/"lampFragment.glsl");
 	Shader lightingShader(/*"Shaders/*/"lightingVertex.glsl", /*"Shaders/*/"lightingFragment.glsl");
 	Shader billboardShader(/*"Shaders/*/"billboardVertex.glsl", /*"Shaders/*/"billboardFragment.glsl");
@@ -535,10 +540,15 @@ int main()
 
 		// clearing the colorbuffer
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+		
+		// sort the transparent windows before render
+		std::sort(windows.begin(), windows.end(), [](glm::vec3 a, glm::vec3 b) { 
+			return glm::length(cameraPos - a) > glm::length(cameraPos - b); 
+		});
+		// render
 		// skybox drawing
 		glDepthMask(GL_FALSE);
 		//glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
@@ -554,13 +564,42 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
 		glDepthMask(GL_TRUE);
-		//glDepthFunc(GL_LESS); // set depth function back to default
 
+		// cube reflecting the skybox drawing
+		mirrorCubeShader.use();
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-1.5f, 0.0f, -1.5f));
+		projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		mirrorCubeShader.setMat4("projection", projection);
+		mirrorCubeShader.setMat4("view", view);
+		mirrorCubeShader.setMat4("model", model);
+		mirrorCubeShader.setVec3("cameraPos", cameraPos);
+		// mirror cube
+		glBindVertexArray(mirrorCubeVAO);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, textureColorbuffer);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+		//glDepthFunc(GL_LESS); // set depth function back to default
+		
+		// floor drawing
+		shader.use();
+		projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		shader.setMat4("projection", projection);
+		shader.setMat4("view", view);
+		glBindVertexArray(planeVAO);
+		glBindTexture(GL_TEXTURE_2D, floorTexture);
+		shader.setMat4("model", glm::mat4(1.0f));
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glBindVertexArray(0);
+		
 		// Parallax Relief Mapping wall drawing
 		parallaxShader.use();
-		glm::mat4 model = glm::mat4(1.0f);
-		/*glm::mat4*/ projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-		/*glm::mat4*/ view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		model = glm::mat4(1.0f);
+		projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		parallaxShader.setMat4("projection", projection);
 		parallaxShader.setMat4("view", view);
 		parallaxShader.setVec3("viewPos", cameraPos);
@@ -615,32 +654,7 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);*/
 
-		// usual cube drawing
-		shader.use();
-		model = glm::mat4(1.0f);
-		projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-		shader.setMat4("projection", projection);
-		shader.setMat4("view", view);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, cubeTexture);
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(-1.5f, 0.75f, -1.5f));
-		model = glm::rotate(model, 45.0f, glm::vec3(0.0, 1.0, 0.0));
-		model = glm::scale(model, glm::vec3(0.5f));
-		shader.setMat4("model", model);
-		glBindVertexArray(cubeVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);
-
-		// floor drawing
-		glBindVertexArray(planeVAO);
-		glBindTexture(GL_TEXTURE_2D, floorTexture);
-		shader.setMat4("model", glm::mat4(1.0f));
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindVertexArray(0);
-
-		//cubes with light drawing
+		/*cubes with light drawing
 		lightingShader.use();
 		lightingShader.setVec3("light.position", lightPos2);
 		lightingShader.setVec3("viewPos", cameraPos);
@@ -659,7 +673,7 @@ int main()
 		model = glm::translate(model, glm::vec3(1.5f, 0.0f, 1.5f));
 		lightingShader.setMat4("model", model);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, skyboxTexture);
+		glBindTexture(GL_TEXTURE_2D, cubeTexture);
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		// second smaller cube
@@ -682,16 +696,57 @@ int main()
 		lampShader.setMat4("model", model);
 		glBindVertexArray(lightVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);*/
+
+		// usual cube drwaing with stencil
+		glStencilFunc(GL_ALWAYS, 1, 0xFF);
+		glStencilMask(0xFF);
+		// cube
+		shader.use();
+		model = glm::mat4(1.0f);
+		projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		shader.setMat4("projection", projection);
+		shader.setMat4("view", view);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, cubeTexture);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(1.5f, 0.0f, 1.5f));
+		shader.setMat4("model", model);
+		glBindVertexArray(cubeVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
+
+		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		glStencilMask(0x00);
+		glDisable(GL_DEPTH_TEST);
+		stencilShader.use();
+		stencilShader.setFloat("time", glfwGetTime());
+		float scale = 1.01f;
+		// cube
+		projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		stencilShader.setMat4("projection", projection);
+		stencilShader.setMat4("view", view);
+		glBindVertexArray(cubeVAO);
+		glBindTexture(GL_TEXTURE_2D, cubeTexture);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(1.5f, 0.0f, 1.5f));
+		model = glm::scale(model, glm::vec3(scale, scale, scale));
+		stencilShader.setMat4("model", model);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glStencilMask(0xFF);
+		glStencilFunc(GL_ALWAYS, 0, 0xFF);
+		glEnable(GL_DEPTH_TEST);
 
 		// billboards drawing
 		billboardShader.use();
-		std::sort(windows.begin(), windows.end(), [](glm::vec3 a, glm::vec3 b) { return glm::length(cameraPos - a) > glm::length(cameraPos - b); });
 		projection = glm::perspective(zoom, (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		billboardShader.setMat4("projection", projection);
 		billboardShader.setMat4("view", view);
 		glBindVertexArray(transparentVAO);
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, transTexture);
 		for (unsigned int i = 0; i < windows.size(); i++) {
 			model = glm::mat4(1.0f);
@@ -699,22 +754,6 @@ int main()
 			shader.setMat4("model", model);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
-		glBindVertexArray(0);
-
-		// cube reflecting the skybox drawing
-		mirrorCubeShader.use();
-		/*glm::mat4*/ model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(-1.5f, 0.0f, -1.5f));
-		projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-		mirrorCubeShader.setMat4("projection", projection);
-		mirrorCubeShader.setMat4("view", view);
-		mirrorCubeShader.setMat4("model", model);
-		mirrorCubeShader.setVec3("cameraPos", cameraPos);
-		// mirror cube
-		glBindVertexArray(mirrorCubeVAO);
-		glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
 
 		// now binding back to default framebuffer and drawing a quad plane with the attached framebuffer color texture

@@ -15,45 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="stencil_single_color.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="blending.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="blending.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="framebuffers.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="framebuffers.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="cubemaps.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="cubemaps.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="debug_quad.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="debag_quad_depth.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="shadow_mapping_depth.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="shadow_mapping_depth.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="shadow_mapping.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="shadow_mapping.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
     <None Include="mirrorCubeFragment.glsl">
       <Filter>Исходные файлы</Filter>
     </None>
@@ -108,18 +69,13 @@
     <None Include="billboardFragment.glsl">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="stencilColorFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="depth_fragment.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
-    <Text Include="depth_vertix.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
   </ItemGroup>
 </Project>
