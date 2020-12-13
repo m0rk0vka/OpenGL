@@ -1,5 +1,6 @@
 # OpenGL
 MSU project OpenGL
+
 Effects:
 1) cube textures in environment mode
 2) pseudo mirrored faces
