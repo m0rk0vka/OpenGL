@@ -31,6 +31,7 @@ void mouseCallback(GLFWwindow* window, double xpos, double ypos);
 void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 void doMovement();
 unsigned int loadTexture(const char* path);
+unsigned int loadTexture1(const char* path);
 unsigned int loadCubemap(std::vector<const char *> parties);
 /*void renderScene(const Shader& shader);
 void renderCube();*/
@@ -56,11 +57,6 @@ bool posteffect = false;
 
 // PRM parameter
 float heightScale = 0.1;
-
-// light attributes
-glm::vec3 lightPos(1.5f, 1.0f, -2.0f); // PRM lamp
-glm::vec3 lightPos1(3.6f, 1.0f, -2.0f); // NM lamp
-glm::vec3 lightPos2(2.5f, 2.0f, 3.0f); // cubes' lamp
 
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
@@ -350,6 +346,11 @@ int main()
 		glm::vec3(-2.5f, 0.0f, 2.0f)
 	};
 
+	// light attributes
+	glm::vec3 lightParallaxPos(-1.1f, 0.6f, -2.0f);
+	glm::vec3 lightNormalPos(1.1f, 0.6f, -2.0f);
+	//glm::vec3 lightCubePos(2.5f, 2.0f, 3.0f);
+
 	// usual cube
 	unsigned int cubeVAO, cubeVBO;
 	glGenVertexArrays(1, &cubeVAO);
@@ -488,7 +489,7 @@ int main()
 	unsigned int skyboxTexture = loadCubemap(parties);
 	unsigned int floorTexture  = loadTexture(/*"Textures/*/"floor.jpg");
 	unsigned int cubeTexture   = loadTexture(/*"Textures/*/"image.jpg");
-	unsigned int transTexture  = loadTexture(/*"Textures/*/"window.png");
+	unsigned int transTexture  = loadTexture1(/*"Textures/*/"window1.png");
 	unsigned int diffuseMap    = loadTexture(/*"Textures/*/"image.jpg");
 	unsigned int normalMap     = loadTexture(/*"Textures/*/"imageNormal.jpg");
 	unsigned int heightMap     = loadTexture(/*"Textures/*/"imageDisplace.jpg");
@@ -548,10 +549,10 @@ int main()
 		std::sort(windows.begin(), windows.end(), [](glm::vec3 a, glm::vec3 b) { 
 			return glm::length(cameraPos - a) > glm::length(cameraPos - b); 
 		});
+		
 		// render
 		// skybox drawing
 		glDepthMask(GL_FALSE);
-		//glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
 		glm::mat4 projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = glm::mat4(glm::mat3(glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp)));
 		skyboxShader.use();
@@ -568,7 +569,7 @@ int main()
 		// cube reflecting the skybox drawing
 		mirrorCubeShader.use();
 		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(-1.5f, 0.0f, -1.5f));
+		model = glm::translate(model, glm::vec3(-3.5f, 0.0f, -2.5f));
 		projection = glm::perspective(zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		mirrorCubeShader.setMat4("projection", projection);
@@ -581,7 +582,6 @@ int main()
 		glBindTexture(GL_TEXTURE_CUBE_MAP, textureColorbuffer);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
-		//glDepthFunc(GL_LESS); // set depth function back to default
 		
 		// floor drawing
 		shader.use();
@@ -603,9 +603,9 @@ int main()
 		parallaxShader.setMat4("projection", projection);
 		parallaxShader.setMat4("view", view);
 		parallaxShader.setVec3("viewPos", cameraPos);
-		parallaxShader.setVec3("lightPos", lightPos);
+		parallaxShader.setVec3("lightPos", lightParallaxPos);
 		parallaxShader.setFloat("heightScale", heightScale);
-		model = glm::translate(model, glm::vec3(1.5f, 0.5f, -2.3f));
+		model = glm::translate(model, glm::vec3(-1.1f, 0.6f, -2.5f));
 		parallaxShader.setMat4("model", model);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseMap);
@@ -615,44 +615,46 @@ int main()
 		glBindTexture(GL_TEXTURE_2D, heightMap);
 		renderQuad();
 
-		/*// light source for PRM wall rendering
+		// light source for PRM wall rendering
 		lampShader.use();
 		glBindVertexArray(lightVAO);
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, lightPos);
+		lightParallaxPos.x = sin(currentFrame * 1.5f) - 1.1;
+		model = glm::translate(model, lightParallaxPos);
 		model = glm::scale(model, glm::vec3(0.1f));
 		lampShader.setMat4("model", model);
 		lampShader.setMat4("projection", projection);
 		lampShader.setMat4("view", view);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);*/
+		glBindVertexArray(0);
 
 		// Normal mapping wall drawing
 		normalShader.use();
 		normalShader.setMat4("projection", projection);
 		normalShader.setMat4("view", view);
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(3.6f, 0.5f, -2.3f));
+		model = glm::translate(model, glm::vec3(1.1f, 0.6f, -2.5f));
 		normalShader.setMat4("model", model);
 		normalShader.setVec3("viewPos", cameraPos);
-		normalShader.setVec3("lightPos", lightPos1);
+		normalShader.setVec3("lightPos", lightNormalPos);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseMap);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, normalMap);
 		renderQuad();
 
-		/*// light source for NM rendering
+		// light source for NM rendering
 		lampShader.use();
 		glBindVertexArray(lightVAO);
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, lightPos1);
+		lightNormalPos.y = sin(currentFrame * 1.5f) + 0.6;
+		model = glm::translate(model, lightNormalPos);
 		model = glm::scale(model, glm::vec3(0.1f));
 		lampShader.setMat4("model", model);
 		lampShader.setMat4("projection", projection);
 		lampShader.setMat4("view", view);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);*/
+		glBindVertexArray(0);
 
 		/*cubes with light drawing
 		lightingShader.use();
@@ -711,7 +713,7 @@ int main()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, cubeTexture);
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(1.5f, 0.0f, 1.5f));
+		model = glm::translate(model, glm::vec3(3.5f, 0.0f, -2.5f));
 		shader.setMat4("model", model);
 		glBindVertexArray(cubeVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -731,7 +733,7 @@ int main()
 		glBindVertexArray(cubeVAO);
 		glBindTexture(GL_TEXTURE_2D, cubeTexture);
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(1.5f, 0.0f, 1.5f));
+		model = glm::translate(model, glm::vec3(3.5f, 0.0f, -2.5f));
 		model = glm::scale(model, glm::vec3(scale, scale, scale));
 		stencilShader.setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -870,13 +872,7 @@ unsigned int loadTexture(char const* path)
     int width, height, nComponents;
     unsigned char* data = SOIL_load_image(path, &width, &height, &nComponents, SOIL_LOAD_AUTO);
     if (data) {
-        GLenum format;
-        if (nComponents == 1)
-            format = GL_RED;
-        else if (nComponents == 3)
-            format = GL_RGB;
-        else if (nComponents == 4)
-            format = GL_RGBA;
+        GLenum format = GL_RGB;
 
         glBindTexture(GL_TEXTURE_2D, textureID);
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
@@ -894,6 +890,34 @@ unsigned int loadTexture(char const* path)
     }
 
     return textureID;
+}
+
+unsigned int loadTexture1(char const* path)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	int width, height, nComponents;
+	unsigned char* data = SOIL_load_image(path, &width, &height, &nComponents, SOIL_LOAD_AUTO);
+	if (data) {
+		GLenum format = GL_RGBA;
+
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, format == GL_RGBA ? GL_CLAMP_TO_EDGE : GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, format == GL_RGBA ? GL_CLAMP_TO_EDGE : GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		SOIL_free_image_data(data);
+	}
+	else {
+		std::cout << "Texture failed to load at path: " << path << std::endl;
+		SOIL_free_image_data(data);
+	}
+
+	return textureID;
 }
 
 
