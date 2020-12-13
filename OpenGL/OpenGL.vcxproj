@@ -154,6 +154,8 @@
     <None Include="blending.vs" />
     <None Include="cubemaps.fs" />
     <None Include="cubemaps.vs" />
+    <None Include="mirrorCubeFragment.glsl" />
+    <None Include="mirrorCubeVertex.glsl" />
     <None Include="normal_mapping.fs" />
     <None Include="normal_mapping.vs" />
     <None Include="RMP.fs" />
@@ -171,11 +173,11 @@
     <None Include="lamp.vs" />
     <None Include="lighting.fr" />
     <None Include="lighting.vs" />
-    <None Include="shader.fr" />
-    <None Include="shader.vs" />
+    <None Include="fragment.glsl" />
+    <None Include="vertex.glsl" />
     <None Include="shadow_mapping_depth.vs" />
-    <None Include="skybox.fs" />
-    <None Include="skybox.vs" />
+    <None Include="skyboxFragment.glsl" />
+    <None Include="skyboxVertex.glsl" />
     <None Include="stencil_single_color.fs" />
     <None Include="stencil_testing.fs" />
     <None Include="stencil_testing.vs" />

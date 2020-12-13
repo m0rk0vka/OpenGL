@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader.fr">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="shader.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
     <None Include="lighting.vs">
       <Filter>Исходные файлы</Filter>
     </None>
@@ -60,12 +54,6 @@
     <None Include="framebuffers_screen.vs">
       <Filter>Исходные файлы</Filter>
     </None>
-    <None Include="skybox.vs">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="skybox.fs">
-      <Filter>Исходные файлы</Filter>
-    </None>
     <None Include="cubemaps.fs">
       <Filter>Исходные файлы</Filter>
     </None>
@@ -100,6 +88,24 @@
       <Filter>Исходные файлы</Filter>
     </None>
     <None Include="RMP.fs">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="mirrorCubeFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="vertex.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="fragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="skyboxFragment.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="skyboxVertex.glsl">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="mirrorCubeVertex.glsl">
       <Filter>Исходные файлы</Filter>
     </None>
   </ItemGroup>
