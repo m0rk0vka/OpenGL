@@ -26,15 +26,15 @@ vec2 ParallaxMapping(vec2 texCoords, vec3 viewDir){
 vec2 reliefPM(vec2 inTexCoords, vec3 inViewDir) { //, out float lastDepthValue) {
 	const float _minLayers = 16.0;
 	const float _maxLayers = 128.0;
-	float _numLayers = mix(_maxLayers, _minLayers, abs(dot(vec3(0., 0., 1.), inViewDir)));
+	float _numLayers = mix(_maxLayers, _minLayers, abs(dot(vec3(0.0, 0.0, 1.0), inViewDir)));
 
-	float deltaDepth = 1./_numLayers;
+	float deltaDepth = 1.0/_numLayers;
 	vec2 deltaTexcoord = heightScale * inViewDir.xy/(inViewDir.z * _numLayers);
 
 	vec2 currentTexCoords = inTexCoords;
 	float currentLayerDepth = 0.0;
 	
-    float currentDepthValue = texture(depthMap, currentTexCoords).r;
+    	float currentDepthValue = texture(depthMap, currentTexCoords).r;
 	while (currentDepthValue > currentLayerDepth) {
 		currentLayerDepth += deltaDepth;
 		currentTexCoords -= deltaTexcoord;
